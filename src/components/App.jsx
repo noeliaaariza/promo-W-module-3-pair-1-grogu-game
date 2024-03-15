@@ -1,32 +1,56 @@
 // Fichero src/components/App.jsx
 import { useState } from "react";
+import Header from "./Header";
+import Board from "./Board";
 import '../scss/App.scss';
+
 
 //import groguImg from '../images/grogu.webp';
 
 function App() {
 
   const [countValue, setCountValue] = useState(1);
-  const [itemList, setItemList] = useState([3]);
   const [numberDice, setNumberDice] = useState(0);
+
+  const [eggs, setEggs] = useState(["🥚","🥚","🥚"]);
+  const [cookies, setCookies] = useState(["🍪","🍪","🍪"]);
+  const [frog, setFrog] = useState(["🐸","🐸","🐸"]);
+  
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+  }
+  
+  rollDice();
+  
+  function rollDice(){
+    let randomNumberDice = getRandomInt(1, 4);
+    console.log(randomNumberDice);
+    switch(randomNumberDice){
+      case randomNumberDice = 1:
+        console.log('Eliminamos Huevos');
+        break;
+      case randomNumberDice = 2:
+        console.log('Eliminamos Cookies');
+        break;  
+      case randomNumberDice = 3:
+        console.log('Eliminamos Ranas');
+        break;
+      case randomNumberDice = 4:
+        console.log('Grogu avanza');
+        break;
+    }
+    
+  }
+
+  
 
 
 
   return (
     <>
-      <header>
-        <h1>¡Cuidado con Grogu!</h1>
-      </header>
+      <Header />
       <main className="page">
-        <section className="board">
-          <div className="cell"><div className="grogu">👣</div></div>
-          <div className="cell"></div>
-          <div className="cell"></div>
-          <div className="cell"></div>
-          <div className="cell"></div>
-          <div className="cell"></div>
-          <div className="cell"></div>
-        </section>
+        <Board />
 
         <section>
           <button className="dice">Lanzar Dado</button>
