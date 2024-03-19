@@ -35,7 +35,7 @@ function App() {
         break;
       case (randomNumberDice = 4):
         console.log("Grogu avanza");
-        setCountValue(countValue++);
+        setCountValue(countValue += 1);
         console.log(countValue);
 
         break;
@@ -50,7 +50,7 @@ function App() {
     <>
       <Header />
       <main className="page">
-        <Board groguPosition={countValue} />
+        <Board groguPosition={countValue} setGroguPosition={setCountValue} />
 
         <section>
           {/*<button className="dice">Lanzar Dado</button>*/}
