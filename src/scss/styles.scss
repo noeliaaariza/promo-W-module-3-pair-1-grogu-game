@@ -7,6 +7,10 @@ html {
     background-size: cover;
 }
 
+header {
+    text-align: center;
+}
+
 .page {
     display: flex;
     flex-direction: column;
@@ -48,19 +52,21 @@ html {
 }
 
 .dice {
-    background-color: #fff;
-    border: 2px solid #000;
+    background-color: transparent;
+    font-size: 50px;
+    filter: drop-shadow(2px 2px 4px rgb(255, 255, 255));
     padding: 10px;
     cursor: pointer;
     font-weight: bold;
     margin: 20px 0;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.2s;
 }
 
 .dice:hover {
-    transform: scale(1.1);
+    transform: scale(1.5);
+    transform: rotate(360deg);
+    transition: transform 0.5s ease;
 }
 
 .game-status {

@@ -3,13 +3,16 @@ import { useState } from "react";
 import Header from "./Header";
 import Board from "./Board";
 import Dice from "./Dice";
+import Form from "./Form";
+import GameStatus from "./GameStatus";
 import "../scss/App.scss";
 
 //import groguImg from '../images/grogu.webp';
 
 function App() {
-  let [countValue, setCountValue] = useState(0);
+  const [countValue, setCountValue] = useState(0);
   const [numberDice, setNumberDice] = useState(0);
+  const [name, setName] = useState("");
 
   const [eggs, setEggs] = useState(["🥚", "🥚", "🥚"]);
   const [cookies, setCookies] = useState(["🍪", "🍪", "🍪"]);
@@ -21,21 +24,21 @@ function App() {
 
   function rollDice() {
     let randomNumberDice = getRandomInt(1, 4);
-    console.log(randomNumberDice);
-    switch (randomNumberDice) {
-      case (randomNumberDice = 1):
-        console.log("Eliminamos Huevos");
+    setNumberDice(randomNumberDice);
 
+    switch (numberDice) {
+      case 1:
+        console.log("Eliminamos Huevos");
         break;
-      case (randomNumberDice = 2):
+      case 2:
         console.log("Eliminamos Cookies");
         break;
-      case (randomNumberDice = 3):
+      case 3:
         console.log("Eliminamos Ranas");
         break;
-      case (randomNumberDice = 4):
+      case 4:
         console.log("Grogu avanza");
-        setCountValue(countValue += 1);
+        setCountValue(countValue + 1);
         console.log(countValue);
 
         break;
@@ -50,12 +53,12 @@ function App() {
     <>
       <Header />
       <main className="page">
-        <Board groguPosition={countValue} setGroguPosition={setCountValue} />
 
+        <Board groguPosition={countValue} setGroguPosition={setCountValue} />
+        <Form setName={setName} />
+        <Dice onClickButton={handleClick} />
         <section>
-          {/*<button className="dice">Lanzar Dado</button>*/}
-          <Dice onClickButton={handleClick} />
-          <div className="game-status">En curso</div>
+          <GameStatus name={name} />
         </section>
 
         <section className="goods-container">
