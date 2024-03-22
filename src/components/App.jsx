@@ -1,4 +1,3 @@
-// Fichero src/components/App.jsx
 import { useState, useEffect } from "react";
 import Header from "./Header";
 import Board from "./Board";
@@ -8,8 +7,6 @@ import GameStatus from "./GameStatus";
 import Goods from "./Goods";
 import "../scss/App.scss";
 
-//import groguImg from '../images/grogu.webp';
-
 function App() {
   const [countValue, setCountValue] = useState(0);
   const [numberDice, setNumberDice] = useState(0);
@@ -17,13 +14,18 @@ function App() {
 
   const [eggs, setEggs] = useState(["🥚", "🥚", "🥚"]);
   const [cookies, setCookies] = useState(["🍪", "🍪", "🍪"]);
-  const [frog, setFrog] = useState(["🐸", "🐸", "🐸"]);
+  const [frogs, setFrogs] = useState(["🐸", "🐸", "🐸"]);
+
+  let savedCookies;
+  let savedEggs;
+  let savedFrogs;
 
   useEffect(() => {
-    const savedCookies = localStorage.getItem("cookies");
-    const savedEggs = localStorage.getItem("eggs");
-    const savedFrogs = localStorage.getItem("frog");
-    const savedGrogu = localStorage.getItem("grogu");
+    savedCookies = JSON.parse(localStorage.getItem("cookies"));
+    savedEggs = JSON.parse(localStorage.getItem("eggs"));
+    savedFrogs = JSON.parse(localStorage.getItem("frogs"));
+    const savedGrogu = JSON.parse(localStorage.getItem("grogu"));
+
     if (savedCookies) {
       setCookies(savedCookies);
     }
@@ -31,7 +33,7 @@ function App() {
       setEggs(savedEggs);
     }
     if (savedFrogs) {
-      setFrog(savedFrogs);
+      setFrogs(savedFrogs);
     }
     if (savedGrogu) {
       setCountValue(savedGrogu);
@@ -39,11 +41,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cookies", cookies);
-    localStorage.setItem("eggs", eggs);
-    localStorage.setItem("frog", frog);
-    localStorage.setItem("grogu", countValue);
-  }, [cookies, eggs, frog, countValue]);
+    localStorage.setItem("cookies", JSON.stringify(cookies));
+    localStorage.setItem("eggs", JSON.stringify(eggs));
+    localStorage.setItem("frogs", JSON.stringify(frogs));
+    localStorage.setItem("grogu", JSON.stringify(countValue));
+
+  }, [cookies, eggs, frogs, countValue]);
 
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -55,22 +58,18 @@ function App() {
 
     switch (randomNumberDice) {
       case 1:
-        eggs.splice(0, 1);
-        setEggs([...eggs]);
+        setEggs(prevEggs => prevEggs.slice(1)); // Usar función de actualización del estado
         break;
       case 2:
-        cookies.splice(0, 1);
-        setCookies([...cookies]);
+        setCookies(prevCookies => prevCookies.slice(1)); // Usar función de actualización del estado
         break;
       case 3:
-        frog.splice(0, 1);
-        setFrog([...frog]);
+        setFrogs(prevFrogs => prevFrogs.slice(1)); // Usar función de actualización del estado
         break;
       case 4:
-        console.log("Grogu avanza");
-        setCountValue(countValue + 1);
-        console.log(countValue);
-
+        setCountValue(prevCountValue => prevCountValue + 1); // Usar función de actualización del estado
+        break;
+      default:
         break;
     }
   }
@@ -97,7 +96,7 @@ function App() {
           <Goods goods={eggs} />
         </section>
         <section className="goods-container">
-          <Goods goods={frog} />
+          <Goods goods={frogs} />
         </section>
         <section>
           <button className="restart-button">Reiniciar Juego</button>

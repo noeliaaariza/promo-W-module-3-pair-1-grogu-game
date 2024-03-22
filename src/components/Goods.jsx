@@ -1,10 +1,11 @@
 function Goods({ goods }) {
+
   const goodsList = goods.map((good, index) => (
     <div className="goods-item" key={index}>
       {good}
     </div>
   ));
-  return [goodsList];
+  return goodsList;
 }
 
 export default Goods;
