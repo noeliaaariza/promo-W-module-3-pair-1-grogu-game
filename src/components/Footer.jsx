@@ -2,24 +2,24 @@ import { NavLink } from "react-router-dom";
 
 function Footer() {
     return (
-        <footer class="footer">
+        <footer className="footer">
             <nav>
                 <ul>
                     <li className="footer__menu-item">
                         <NavLink className="footer__menu-link" to="/">A jugar</NavLink>
                     </li>
-                    <li class="footer__menu-item">
+                    <li className="footer__menu-item">
                         <NavLink className="footer__menu-link" to="/instructions">¿Cómo se juega?</NavLink>
 
                     </li>
-                    <li class="footer__menu-item">
+                    <li className="footer__menu-item">
 
                         <NavLink className="footer__menu-link" to="/options">Más opciones</NavLink>
 
                     </li>
                 </ul>
             </nav>
-            <small class="footer__copy">© Adalab</small>
+            <small className="footer__copy">© Adalab</small>
         </footer>
     )
 

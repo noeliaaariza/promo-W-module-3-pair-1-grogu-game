@@ -8,8 +8,7 @@ import Goods from "./Goods";
 import Footer from "./Footer";
 import Instructions from "./Instructions";
 import Options from "./Options";
-import { NavLink } from "react-router-dom";
-import { Route, Routes } from "react-dom/client";
+import { Route, Routes } from "react-router-dom";
 import "../scss/App.scss";
 
 function App() {
