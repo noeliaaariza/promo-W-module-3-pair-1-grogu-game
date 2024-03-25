@@ -8,37 +8,20 @@ import Goods from "./Goods";
 import "../scss/App.scss";
 
 function App() {
-  const [countValue, setCountValue] = useState(0);
+
+  const savedCookies = JSON.parse(localStorage.getItem("cookies")) || ["🍪", "🍪", "🍪"];
+  const savedEggs = JSON.parse(localStorage.getItem("eggs")) || ["🥚", "🥚", "🥚"];
+  const savedFrogs = JSON.parse(localStorage.getItem("frogs")) || ["🐸", "🐸", "🐸"];
+  const savedGrogu = JSON.parse(localStorage.getItem("grogu")) || 0;
+  const savedUserName = JSON.parse(localStorage.getItem("userName")) || "";
+
+  const [countValue, setCountValue] = useState(savedGrogu);
   const [numberDice, setNumberDice] = useState(0);
-  const [name, setName] = useState("");
+  const [name, setName] = useState(savedUserName);
 
-  const [eggs, setEggs] = useState(["🥚", "🥚", "🥚"]);
-  const [cookies, setCookies] = useState(["🍪", "🍪", "🍪"]);
-  const [frogs, setFrogs] = useState(["🐸", "🐸", "🐸"]);
-
-  let savedCookies;
-  let savedEggs;
-  let savedFrogs;
-
-  useEffect(() => {
-    savedCookies = JSON.parse(localStorage.getItem("cookies"));
-    savedEggs = JSON.parse(localStorage.getItem("eggs"));
-    savedFrogs = JSON.parse(localStorage.getItem("frogs"));
-    const savedGrogu = JSON.parse(localStorage.getItem("grogu"));
-
-    if (savedCookies) {
-      setCookies(savedCookies);
-    }
-    if (savedEggs) {
-      setEggs(savedEggs);
-    }
-    if (savedFrogs) {
-      setFrogs(savedFrogs);
-    }
-    if (savedGrogu) {
-      setCountValue(savedGrogu);
-    }
-  }, []);
+  const [eggs, setEggs] = useState(savedEggs);
+  const [cookies, setCookies] = useState(savedCookies);
+  const [frogs, setFrogs] = useState(savedFrogs);
 
   useEffect(() => {
     localStorage.setItem("cookies", JSON.stringify(cookies));
@@ -46,7 +29,9 @@ function App() {
     localStorage.setItem("frogs", JSON.stringify(frogs));
     localStorage.setItem("grogu", JSON.stringify(countValue));
 
-  }, [cookies, eggs, frogs, countValue]);
+    localStorage.setItem("userName", JSON.stringify(name));
+
+  }, [cookies, eggs, frogs, countValue, name]);
 
   function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
@@ -78,6 +63,10 @@ function App() {
     rollDice(event);
   }
 
+  function handleReset() {
+    localStorage.clear();
+    window.location.reload();
+  }
   return (
     <>
       <Header />
@@ -86,7 +75,7 @@ function App() {
         <Form setName={setName} />
         <Dice onClickButton={handleClick} />
         <section>
-          <GameStatus name={name} />
+          <GameStatus name={name} countValue={countValue} eggs={eggs} cookies={cookies} frogs={frogs} />
         </section>
 
         <section className="goods-container">
@@ -99,7 +88,7 @@ function App() {
           <Goods goods={frogs} />
         </section>
         <section>
-          <button className="restart-button">Reiniciar Juego</button>
+          <button className="restart-button" onClick={handleReset}>Reiniciar Juego</button>
         </section>
       </main>
     </>
