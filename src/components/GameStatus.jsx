@@ -1,16 +1,14 @@
 
-
 function GameStatus({ name, countValue, eggs, cookies, frogs }) {
     let statusMsg;
+
     if (countValue >= 6) {
-        statusMsg = "Has Perdido, Grogu se ha comido todo tu cargamento!!"
+        statusMsg = " Has Perdido, Grogu se ha comido todo tu cargamento!!"
     } else if (eggs.length == 0 && cookies.length == 0 && frogs.length == 0) {
-
-        statusMsg = "Enhorabuena!! has descargado correctamente"
+        statusMsg = " Enhorabuena!! has descargado correctamente"
     } else {
-        statusMsg = "En Curso"
+        statusMsg = " En Curso"
     }
-
 
     return (
 

@@ -5,9 +5,15 @@ import Dice from "./Dice";
 import Form from "./Form";
 import GameStatus from "./GameStatus";
 import Goods from "./Goods";
+import Footer from "./Footer";
+import Instructions from "./Instructions";
+import Options from "./Options";
+import { NavLink } from "react-router-dom";
+import { Route, Routes } from "react-dom/client";
 import "../scss/App.scss";
 
 function App() {
+
 
   const savedCookies = JSON.parse(localStorage.getItem("cookies")) || ["🍪", "🍪", "🍪"];
   const savedEggs = JSON.parse(localStorage.getItem("eggs")) || ["🥚", "🥚", "🥚"];
@@ -22,6 +28,8 @@ function App() {
   const [eggs, setEggs] = useState(savedEggs);
   const [cookies, setCookies] = useState(savedCookies);
   const [frogs, setFrogs] = useState(savedFrogs);
+
+
 
   useEffect(() => {
     localStorage.setItem("cookies", JSON.stringify(cookies));
@@ -70,27 +78,35 @@ function App() {
   return (
     <>
       <Header />
-      <main className="page">
-        <Board groguPosition={countValue} setGroguPosition={setCountValue} />
-        <Form setName={setName} />
-        <Dice onClickButton={handleClick} />
-        <section>
-          <GameStatus name={name} countValue={countValue} eggs={eggs} cookies={cookies} frogs={frogs} />
-        </section>
+      <Routes>
+        <Route path="/instructions" element={<Instructions />} />
+        <Route path="/options" element={<Options />} />
+        <Route path="/" element={
 
-        <section className="goods-container">
-          <Goods goods={cookies} />
-        </section>
-        <section className="goods-container">
-          <Goods goods={eggs} />
-        </section>
-        <section className="goods-container">
-          <Goods goods={frogs} />
-        </section>
-        <section>
-          <button className="restart-button" onClick={handleReset}>Reiniciar Juego</button>
-        </section>
-      </main>
+          <main className="page">
+            <Board groguPosition={countValue} setGroguPosition={setCountValue} />
+            <Form setName={setName} />
+            <Dice onClickButton={handleClick} />
+            <section>
+              <GameStatus name={name} countValue={countValue} eggs={eggs} cookies={cookies} frogs={frogs} />
+            </section>
+
+            <section className="goods-container">
+              <Goods goods={cookies} />
+            </section>
+            <section className="goods-container">
+              <Goods goods={eggs} />
+            </section>
+            <section className="goods-container">
+              <Goods goods={frogs} />
+            </section>
+            <section>
+              <button className="restart-button" onClick={handleReset}>Reiniciar Juego</button>
+            </section>
+          </main>} />
+      </Routes>
+      <Footer />
+
     </>
   );
 }
